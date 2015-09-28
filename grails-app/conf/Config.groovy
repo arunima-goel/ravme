@@ -115,3 +115,33 @@ log4j.main = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
+
+// Added by the Spring Security Core plugin:
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'org.ravishingme.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'org.ravishingme.UserRole'
+grails.plugin.springsecurity.authority.className = 'org.ravishingme.Role'
+grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+	'/':                ['permitAll'],
+	'/index':           ['ROLE_USER'],
+	'/index.gsp':       ['ROLE_USER'],
+	'/assets/**':       ['permitAll'],
+	'/**/js/**':        ['permitAll'],
+	'/**/css/**':       ['permitAll'],
+	'/**/images/**':    ['permitAll'],
+	'/**/favicon.ico':  ['permitAll'],
+	'/**':				['IS_AUTHENTICATED_ANONYMOUSLY']
+]
+
+oauth {
+	providers {
+		facebook {
+			api = org.scribe.builder.api.FacebookApi
+			key = '1674436499467057'
+			secret = 'e39418757e388a90986b18f868bb6833'
+			successUri = '/user/success'
+			failureUri = '/user/error'
+			callback = "http://localhost:8080/ravme/oauth/facebook/callback"
+		}
+	}
+}
+
