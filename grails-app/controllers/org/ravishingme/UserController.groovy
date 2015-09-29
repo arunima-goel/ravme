@@ -9,6 +9,7 @@ class UserController {
 	def index() {}
 
 	def loginSuccess() {
+		log.info("Successful facebook login");
 		Token facebookAccessToken = (Token) session[oauthService.findSessionKeyForAccessToken('facebook')]
 		try {
 

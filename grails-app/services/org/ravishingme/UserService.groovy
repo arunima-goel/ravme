@@ -28,6 +28,7 @@ class UserService {
 	}
 	
 	def createUser(Token facebookAccessToken) {
+		log.info("Create user in local database");
 		if (!facebookAccessToken) {
 			throw new CustomException("Token not found.")
 		}
@@ -43,6 +44,7 @@ class UserService {
 		
 		def userId = facebookResponse.id
 		if ( !User.findByUserid(userId) ) {
+			log.info("User not found in db, creating one now");
 			def username = counterService.getNextUsernameInSequence(facebookResponse.name.split(" ").join("-"))
 			def role = Role.findByAuthority("ROLE_USER") ?: new Role(authority: "ROLE_USER").save(failOnError: true)
 			def user = new User(username, userId).save(failOnError: true)
