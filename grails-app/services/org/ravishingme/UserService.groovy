@@ -9,10 +9,21 @@ import org.scribe.model.Token
 class UserService {
 
 	def oauthService
+	def counterService
 	
 	def getUser(Token facebookAccessToken) {
-		
+		if (!facebookAccessToken) {
+			throw new CustomException("Token not found.")
+		}
 
+		def facebookResource = oauthService.getFacebookResource(facebookAccessToken, "https://graph.facebook.com/me")
+		def facebookResponse = JSON.parse(facebookResource?.getBody())
+
+		Map data = [id: facebookResponse.id, username: facebookResponse.username, name: facebookResponse.name, email: facebookResponse.email,
+					first_name: facebookResponse.first_name, last_name: facebookResponse.last_name, birthday: facebookResponse.birthday,
+					gender: facebookResponse.gender, link: facebookResponse.link, work: facebookResponse.work, hometown: facebookResponse.hometown,
+					education: facebookResponse.education]
+		
 		return [data]
 	}
 	
@@ -29,15 +40,17 @@ class UserService {
 					gender: facebookResponse.gender, link: facebookResponse.link, work: facebookResponse.work, hometown: facebookResponse.hometown,
 					education: facebookResponse.education]
 		
+		
 		def userId = facebookResponse.id
 		if ( !User.findByUserid(userId) ) {
-			// TODO: this should go into a transactional service
+			def username = counterService.getNextUsernameInSequence(facebookResponse.name.split(" ").join("-"))
 			def role = Role.findByAuthority("ROLE_USER") ?: new Role(authority: "ROLE_USER").save(failOnError: true)
-			def user = new User("facebook_" + userId, userId).save(failOnError: true)
+			def user = new User(username, userId).save(failOnError: true)
 			if (!user.authorities.contains(role)) {
 				UserRole.create user, role
 			}
-		}
+		} 
+		
 		return [data]
 	}
 }
