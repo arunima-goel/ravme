@@ -6,8 +6,9 @@
 </head>
 
 <body>
-<g:link mapping="aboutus">About us</g:link>
-|
+Test about us</br>
+
+
 <oauth:connect provider="facebook" id="facebook-connect-link">Login</oauth:connect>
 |
 <oauth:connect provider="facebook" id="facebook-connect-link">Sign up</oauth:connect>

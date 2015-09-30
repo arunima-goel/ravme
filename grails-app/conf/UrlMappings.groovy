@@ -7,6 +7,7 @@ class UrlMappings {
             }
         }
 
+		name aboutus: "/aboutus"(view:"/aboutus")
         "/"(view:"/index")
         "500"(view:'/error')
 	}
