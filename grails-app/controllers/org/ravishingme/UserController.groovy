@@ -12,25 +12,38 @@ class UserController {
 		log.info("Successful facebook login");
 		Token facebookAccessToken = (Token) session[oauthService.findSessionKeyForAccessToken('facebook')]
 		try {
-
+			def facebookResource = oauthService.getFacebookResource(facebookAccessToken, "https://graph.facebook.com/me")
+			def facebookResponse = JSON.parse(facebookResource?.getBody())
+	
 			if (facebookAccessToken) {
-				def data = userService.createUser(facebookAccessToken)
-				render data
+				def userid = facebookResponse.id
+				if (!User.findByUserid(userid)) {
+					userService.createUser(facebookResponse.name, userid)
+				}
+				User user = User.findByUserid(userid)
+				log.info("Logged in user: " + user.getUsername())
+				redirect(controller: "profile", action: "index", params:[username:user.getUsername()])
 			} else {
 				flash.error = "Token not found."
-				Map data = [response: "false"]
-				render data
 			}
 			
 		} catch (CustomException ce) {
-			Map data = [response: "error"]
-			render data
+			flash.error = "Exception during login"
 		}
 
 
 	}
 
 	def loginError() {
-		render params
+		flash.error = "Error."
+        render view: '/index'
+	}
+	
+	def logout() {
+		if (params.id && session[oauthService.findSessionKeyForAccessToken(params.id)]) {
+			session[oauthService.findSessionKeyForAccessToken(params.id)] = null
+			flash.message = "Token revoked successfully."
+		}
+		redirect action: 'index'
 	}
 }

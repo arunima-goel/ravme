@@ -7,6 +7,8 @@ class User implements Serializable {
 	String username
 	String userid // fb id
 	
+	static hasOne = [profile:Profile]
+	
 	boolean enabled = true
 	boolean accountExpired
 	boolean accountLocked
