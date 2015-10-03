@@ -13,10 +13,11 @@ class User implements Serializable {
 	boolean accountExpired
 	boolean accountLocked
 	
-	User(String username, String userid) {
+	User(String username, String userid, Profile profile) {
 		this()
 		this.username = username
 		this.userid = userid
+		this.profile = profile
 	}
 
 	@Override
