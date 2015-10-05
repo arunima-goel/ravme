@@ -22,7 +22,7 @@ class UserController {
 				}
 				User user = User.findByUserid(userid)
 				log.info("Logged in user: " + user.getUsername())
-				redirect(controller: "profile", action: "index", params:[username:user.getUsername()])
+				redirect(controller: "profile", action: "index", params:[username: user.getUsername()])
 			} else {
 				flash.error = "Token not found."
 			}

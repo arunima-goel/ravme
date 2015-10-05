@@ -14,7 +14,7 @@ class UserService {
 		def username = counterService.getNextUsernameInSequence(name.split(" ").join("-"))
 		def role = Role.findByAuthority("ROLE_USER") ?: new Role(authority: "ROLE_USER").save(failOnError: true)
 		
-		def profile = new Profile(username, new Date());
+		def profile = new Profile(username);
 		def user = new User(username, userId, profile)
 		user.save(failOnError: true)
 		

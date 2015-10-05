@@ -7,7 +7,7 @@
 
 <body>
 Test Profile view</br>
-${profile.username}
+${profile.name}
 
 <g:link mapping="aboutus"> About us</g:link>
 |

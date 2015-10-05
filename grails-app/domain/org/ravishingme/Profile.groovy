@@ -5,22 +5,20 @@ import java.util.List;
 
 class Profile implements Serializable {
 
-	Profile(String _username, Date _createDate) {
-		username = _username
-		createDate = _createDate
-		lastUpdated = _createDate
-		isArtist = false
+	Profile(String username) {
+		this.username = username
+		this.isArtist = false
 	}
 
 	// add photos
-	String username // need to autogenerate this
+	String username
 	String aboutYou // will this have a limit?
 	String locationsServed // checked combo box on the UI and a list here based on location
 	String baseLocation // combo box containing states
 	Date lastUpdated
-	Date createDate
+	Date dateCreated
 	List cosmeticBrands // checked combo box? comma separated list will do for now
-	List specialities // checked combo box? comma separated list will do for now
+	List specialities // checked combo box? comma separated list will do for now // fix spelling - change to 'specialties'
 	List modesOfPayment // what modes of payment are available in india?
 	String phoneNumber // required? what data type?
 	String businessHours
@@ -38,8 +36,6 @@ class Profile implements Serializable {
 		username blank: false, nullable: false, editable: false
 		locationsServed nullable: true
 		baseLocation nullable: true
-		lastUpdated nullable: false
-		createDate nullable: false
 		cosmeticBrands nullable: true
 		modesOfPayment nullable: true
 		businessHours nullable: true
