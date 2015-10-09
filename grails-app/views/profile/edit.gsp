@@ -6,14 +6,31 @@
 </head>
 
 <body>
-Test Profile edit</br>
-${profile.username}
-
-
 <g:link mapping="aboutus"> About us</g:link>
 |
 <oauth:connect provider="facebook" id="facebook-connect-link">Login</oauth:connect>
 |
 <oauth:connect provider="facebook" id="facebook-connect-link">Sign up</oauth:connect>
+</br>
+Test Profile edit</br>
+</br>
+<g:form method="post" >
+	<g:hiddenField name="username" value="${profile?.username}" />
+	<g:hiddenField name="id" value="${profile?.id}" />
+	About You: <g:textField name="aboutYou" value="${profile.aboutYou}" /></br>
+	Locations Served: <g:textField name="locationsServed" value="${profile.locationsServed}" /></br>
+	Base Location: <g:textField name="baseLocation" value="${profile.baseLocation}" /></br>
+	Cosmetic Brands: <g:textField name="cosmeticBrands" value="${profile.cosmeticBrands}" /></br>
+	Specialties: <g:textField name="specialities" value="${profile.specialities}" /></br>
+	Modes of payment: <g:textField name="modesOfPayment" value="${profile.modesOfPayment}" /></br>
+	Phone number: <g:textField name="phoneNumber" value="${profile.phoneNumber}" /></br>
+	Business hours: <g:textField name="businessHours" value="${profile.businessHours}" /></br>
+	Starting price: <g:textField name="startingPrice" value="${profile.startingPrice}" /></br>
+	Accomplishments: <g:textField name="accomplishments" value="${profile.accomplishments}" /></br>
+	Years of experience: <g:textField name="yearsOfExperience" value="${profile.yearsOfExperience}" /></br>
+	Is Artist: <g:textField name="isArtist" value="${profile.isArtist}" /></br>
+	Social networks: <g:textField name="socialNetworks" value="${profile.socialNetworks}" /></br>
+	<g:actionSubmit action="save" value="${message(code: 'default.button.update.label', default: 'Update')}" />
+</g:form>
 </body>
 </html>
