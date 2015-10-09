@@ -1,11 +1,15 @@
 package org.ravishingme
 
+import java.util.Date;
+
 class User implements Serializable {
 
 	private static final long serialVersionUID = 1
 
 	String username
 	String userid // fb id
+	Date lastUpdated
+	Date dateCreated
 	
 	static hasOne = [profile:Profile]
 	

@@ -1,11 +1,15 @@
 package org.ravishingme
 
+import java.util.Date;
+
 class Role implements Serializable {
 
 	private static final long serialVersionUID = 1
 
 	String authority
-
+	Date lastUpdated
+	Date dateCreated
+	
 	Role(String authority) {
 		this()
 		this.authority = authority

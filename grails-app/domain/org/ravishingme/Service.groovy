@@ -1,9 +1,13 @@
 package org.ravishingme
 
+import java.util.Date;
+
 class Service {
 	String serviceGroup
 	String serviceName
 	Double price
+	Date lastUpdated
+	Date dateCreated
 	
 	static belongsTo = [profile: Profile]
 	
