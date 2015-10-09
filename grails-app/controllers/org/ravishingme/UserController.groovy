@@ -40,10 +40,12 @@ class UserController {
 	}
 	
 	def logout() {
+		log.info("logging out")
 		if (params.id && session[oauthService.findSessionKeyForAccessToken(params.id)]) {
 			session[oauthService.findSessionKeyForAccessToken(params.id)] = null
 			flash.message = "Token revoked successfully."
+			log.info("token revoked successfully")
 		}
-		redirect action: 'index'
+				redirect(uri: "/")
 	}
 }
