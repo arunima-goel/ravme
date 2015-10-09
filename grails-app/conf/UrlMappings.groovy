@@ -10,7 +10,7 @@ class UrlMappings {
 		name aboutus: "/aboutus"(view:"/aboutus")
 		"/"(view:"/index")
 		"/profile/$username?" (controller: "profile", action: "index")
-		"/profile/edit/$name"(controller:"profile", action:"edit")
+		"/profile/edit/$name?"(controller:"profile", action:"edit")
         "500"(view:'/error')
 	}
 }

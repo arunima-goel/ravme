@@ -30,7 +30,7 @@ Test Profile edit</br>
 	Years of experience: <g:textField name="yearsOfExperience" value="${profile.yearsOfExperience}" /></br>
 	Is Artist: <g:textField name="isArtist" value="${profile.isArtist}" /></br>
 	Social networks: <g:textField name="socialNetworks" value="${profile.socialNetworks}" /></br>
-	<g:actionSubmit action="save2" value="${message(code: 'default.button.update.label', default: 'Update')}" />
+	<g:actionSubmit action="save" value="${message(code: 'default.button.update.label', default: 'Update')}" />
 </g:form>
 </body>
 </html>

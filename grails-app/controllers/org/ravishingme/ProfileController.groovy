@@ -41,27 +41,17 @@ class ProfileController {
 	}
 	
 	def save() {
-		log.info("Saving profile") 
-		def profile = new Profile(params)
-
-		log.info("ID: " + params.id + " username: " + params.username)
-		log.info("Saved profile for user: " + profile.getName2())
-		redirect(action:"edit", params:[name: profile.getName2()])
-		
-		def personInstance = Person.get(id)
-		
-	}
-
-	def save2() {
 		log.info("Saving profile")
 		log.info("\nID: " + params.id + 
 			"\nprofile username: " + params.username +
-			"\nabout you: " + params.aboutYou)
+			"\nmodes of payment: " + params.modesOfPayment)
 		
 		def profileInstance = Profile.get(params.id)
 		def user = User.findByUsername(profileInstance.username)
 		profileInstance.properties = params
+		log.info("Profile instance modes of payment: " + profileInstance.modesOfPayment)
 		profileInstance.save(flush: true)
+		redirect(action: "edit", params:[name: profileInstance.username])
 		
 	}
 
