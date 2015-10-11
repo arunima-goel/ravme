@@ -63,6 +63,7 @@ grails.project.dependency.resolution = {
         compile ":asset-pipeline:2.1.5"
 		compile ":mongodb:3.0.0"
 		compile ":oauth:2.6.1"
+		compile ":mail:1.0.7"
 		
         // plugins needed at runtime but not for compilation
         runtime ":jquery:1.11.1"

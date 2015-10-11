@@ -55,7 +55,6 @@ class ProfileController {
 		
 	}
 
-
 	def minContentExists(String name) {
 		log.info("Minimum content exists for the profile: " + name);
 		return false;

@@ -92,17 +92,17 @@
                                 <oauth:disconnected provider="facebook">
 	                                <span class="vert hidden-xs">&vert;</span>
 	                                <li>
-	                                    <oauth:connect class="testClick" provider="facebook" id="facebook-connect-link">login</oauth:connect>
+	                                    <oauth:connect provider="facebook" id="facebook-connect-link">login</oauth:connect>
 	                                </li>
 	                                <span class="vert hidden-xs">&vert;</span>
 	                                <li>
-	                                    <oauth:connect class="testClick" provider="facebook" id="facebook-connect-link">sign up</oauth:connect>
+	                                    <oauth:connect provider="facebook" id="facebook-connect-link">sign up</oauth:connect>
 	                                </li>
                                 </oauth:disconnected>
                                 <oauth:connected provider="facebook">
 									<span class="vert hidden-xs">&vert;</span>
 	                                <li>
-	                                    <g:link class="testClick" controller="user" action="logout" id="facebook">Logout</g:link>
+	                                    <g:link controller="user" action="logout" id="facebook">Logout</g:link>
 	                                </li>
 	                            </oauth:connected>
                             </ul>
@@ -284,8 +284,8 @@
                 <div class="row">
                     <div class="col-md-8 contact-form">
                       <h3 class="contact-header">Say Hello!</h3>
-                      <form role="form" action="" method="post" >
-                        <label for="InputName">Name <span class="required">*</span></label>
+                      <g:form method="post" controller="mail">
+						<label for="InputName">Name <span class="required">*</span></label>
                         <input type="text" class="form-control" name="InputName" id="InputName" required>
             
                         <label for="InputEmail">Email <span class="required">*</span></label>
@@ -293,9 +293,8 @@
                            
                         <label for="InputMessage">Message <span class="required">*</span></label>
                         <textarea name="InputMessage" id="InputMessage" class="form-control" rows="5" required></textarea>
-                        <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info contact-btn">
-                      
-                    </form><!-- /Contact Form -->
+                        <g:actionSubmit action="testAction" value="Submit" class="btn btn-info contact-btn" />
+                    </g:form><!-- /Contact Form -->
                     </div>
                     
                     <div class="col-md-4 contact-info">
