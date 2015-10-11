@@ -125,8 +125,8 @@
                 <p>support@ravishing.me</p>
                 
                 <ul class="social-links">
-                    <li class="pt-icon"><a href="#"></a></li>
-                    <li class="fb-icon"><a href="#"></a></li>
+                    <li><a href="https://www.facebook.com/Ravishingme-1621934231391175" target="_blank"><asset:image class="pt-icon" src="pt-icon.png"/></a></li>
+                    <li><a href="https://www.facebook.com/Ravishingme-1621934231391175" target="_blank"><asset:image class="fb-icon" src="fb-icon.png"/></a></li>
                 </ul>
             </div>
         </div><!-- /Container -->
