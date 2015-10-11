@@ -106,11 +106,11 @@
     </div><!-- /Home Wrapper -->
 
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    <asset:javascript src="jquery.js"/>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
+    <asset:javascript src="bootstrap.min.js"/>
+    
 </body>
 
 </html>
