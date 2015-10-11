@@ -70,7 +70,6 @@
 	                                    <g:link controller="user" action="logout" id="facebook">Logout</g:link>
 	                                </li>
 	                            </oauth:connected>
-                                
                             </ul>
                         </div>
                     </div>
