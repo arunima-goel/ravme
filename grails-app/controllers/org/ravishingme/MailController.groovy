@@ -10,7 +10,10 @@ class MailController {
 		sendMail {
 			to "goel.arunima@gmail.com"
 			subject "This is a test mail"
-			html g.render(template:'/mail/test', model:[name:'John Doe'])
+			from "goel.arunima@gmail.com"
+			body "This is a test mail hello"
 		}
+		log.info("Sent email")
+		
 	}
 }

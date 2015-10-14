@@ -6,32 +6,29 @@ import org.scribe.model.Token
 class UserController {
 	def oauthService
 	def userService
+	def facebookService
+	
 	def index() {}
 
 	def loginSuccess() {
 		log.info("Successful facebook login");
 		Token facebookAccessToken = (Token) session[oauthService.findSessionKeyForAccessToken('facebook')]
 		try {
-			def facebookResource = oauthService.getFacebookResource(facebookAccessToken, "https://graph.facebook.com/me")
-			def facebookResponse = JSON.parse(facebookResource?.getBody())
-	
-			if (facebookAccessToken) {
-				def userid = facebookResponse.id
-				if (!User.findByUserid(userid)) {
-					userService.createUser(facebookResponse.name, userid)
-				}
-				User user = User.findByUserid(userid)
-				log.info("Logged in user: " + user.getUsername())
-				redirect(controller: "profile", action: "index", params:[username: user.getUsername()])
-			} else {
-				flash.error = "Token not found."
+			// Get user id and username from facebook
+			def (userid, username) = facebookService.getUserIdAndName(facebookAccessToken, "me")
+			log.info("userId: " + userid + " username: " + username)
+			
+			// Create the user in our database
+			if (!User.findByUserid(userid)) {
+				userService.createUser(username, userid)
 			}
 			
+			// Get the user and redirect to the profile of the user
+			User user = User.findByUserid(userid)
+			redirect(controller: "profile", action: "index", params:[username: user.getUsername()])
 		} catch (CustomException ce) {
 			flash.error = "Exception during login"
 		}
-
-
 	}
 
 	def loginError() {
