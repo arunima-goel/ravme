@@ -36,7 +36,34 @@ Test Profile edit</br>
 	Years of experience: <g:textField name="yearsOfExperience" value="${profile.yearsOfExperience}" /></br>
 	Is Artist: <g:textField name="isArtist" value="${profile.isArtist}" /></br>
 	Social networks: <g:textField name="socialNetworks" value="${profile.socialNetworks}" /></br>
+	
+	</br>Services:</br>
+	<g:each in="${profile.services}" var="service">
+		<tr>
+			<td>
+				<g:link class="btn btn-small btn-inverse" controller="service" action="delete" id="${service.id}">
+	                Delete
+	            </g:link>/
+			</td>
+			<td>
+		 		Service - Service group: ${service.serviceGroup}, Service name: ${service.serviceName}, Price: ${service.price} </br>
+   			</td>
+		</tr>
+    </g:each>
+	
 	<g:actionSubmit action="save" value="${message(code: 'default.button.update.label', default: 'Update')}" />
 </g:form>
+
+</br></br>
+<g:form>
+	<g:hiddenField name="id" value = "${profile?.id}"/>
+	Group name: <g:textField name="serviceGroup"/></br>
+	Service name: <g:textField name="serviceName"/></br>
+	Price: <g:textField name="price"/></br>
+	<g:actionSubmit action="addService" value="Add Service" />
+</g:form>
+
+
+	
 </body>
 </html>

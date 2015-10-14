@@ -29,7 +29,7 @@ class Profile implements Serializable {
 	String socialNetworks // split this into different networks? figure out how I will model this
 
 	//static hasMany = [photos: Photo]
-//	static hasMany = [services: Service, favorites: User]
+	static hasMany = [services: Service]
 	static belongsTo = [user: User]
 
 	static constraints = {

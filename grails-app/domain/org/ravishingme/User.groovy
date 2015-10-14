@@ -12,6 +12,7 @@ class User implements Serializable {
 	Date dateCreated
 	
 	static hasOne = [profile:Profile]
+	//static hasMany = [favorites: User]
 	
 	boolean enabled = true
 	boolean accountExpired

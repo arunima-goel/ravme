@@ -48,12 +48,22 @@ class ProfileController {
 			"\nmodes of payment: " + params.modesOfPayment)
 		
 		def profileInstance = Profile.get(params.id)
-		def user = User.findByUsername(profileInstance.username)
 		profileInstance.properties = params
 		log.info("Profile instance modes of payment: " + profileInstance.modesOfPayment)
 		profileInstance.save(flush: true)
 		redirect(action: "edit", params:[name: profileInstance.username])
 		
+	}
+	
+	def addService() {
+		log.info("Adding service")
+		def serviceInstance = new Service()
+		serviceInstance.properties = params
+		
+		def profileInstance = Profile.get(params.id)
+		profileInstance.addToServices(serviceInstance)
+		profileInstance.save(flush: true)
+		redirect(action: "edit", params:[name: profileInstance.getUsername()])
 	}
 
 	def minContentExists(String name) {
