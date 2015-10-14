@@ -13,7 +13,8 @@ class ProfileController {
 		try {
 			def profile = Profile.findByUsername(username)
 			if (profile) {
-				checkMinContent(username)
+				checkMinContent(username) // if logged in user is the same as the username, 
+										  // then check min content and display edit page
 				[profile:profile]
 			} else {
 				redirect(uri: "/")
@@ -54,7 +55,6 @@ class ProfileController {
 		redirect(action: "edit", params:[name: profileInstance.username])
 		
 	}
-
 
 	def minContentExists(String name) {
 		log.info("Minimum content exists for the profile: " + name);

@@ -155,3 +155,26 @@ oauth {
 	}
 }
 
+grails {
+	mail {
+		host = "smtpout.secureserver.net"
+		port = 587
+		username = "ravishing@ravishing.me"
+		password = "ravdotme"	
+		props = ["mail.smtps.auth":"true"]
+	}
+}
+
+//grails {
+//	mail {
+//		host = "smtp.gmail.com" //smtpout.secureserver.net
+//		port = 465 //110 (995 ssl)
+//		username = "xxxx" // ravishing@ravishing.me
+//		password = "xxxx" // ravdotme
+//		props = ["mail.smtp.auth":"true",
+//				"mail.smtp.socketFactory.port":"465",
+//				"mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+//				"mail.smtp.socketFactory.fallback":"false"]
+//	}
+//}
+
