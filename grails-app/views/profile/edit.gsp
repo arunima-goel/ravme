@@ -20,6 +20,9 @@
 </br>
 Test Profile edit</br>
 </br>
+${raw(profilePic)}
+</br>
+</br>
 <g:form method="post" >
 	<g:hiddenField name="username" value="${profile?.username}" />
 	<g:hiddenField name="id" value="${profile?.id}" />

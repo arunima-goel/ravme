@@ -17,7 +17,7 @@ class ProfileController {
 				checkMinContent(username) // if logged in user is the same as the username, 
 										  // then check min content and display edit page
 				def user = getLoggedInUser()
-				[profile:profile]
+				[profile:profile, profilePic: getProfilePic(username)]
 			} else {
 				redirect(uri: "/")
 			}
@@ -53,7 +53,7 @@ class ProfileController {
 			def facebookResponse = JSON.parse(facebookResource?.getBody())
 
 			def profile = Profile.findByUsername(name);
-			[profile:profile]
+			[profile:profile, profilePic: getProfilePic(profile.username)]
 		} catch (Exception e) {
 			flash.error = "Exception during profile edit"
 		}
@@ -102,12 +102,24 @@ class ProfileController {
 		def profileInstance = Profile.get(params.id)
 		profileInstance.removeFromFavorites(favoriteProfileInstance)
 		profileInstance.save(flush: true)
-//		redirect(action: "index", params:[username: profileInstance.getUsername()])
+		redirect(action: "index", params:[username: profileInstance.getUsername()])
 	}
 	
 	def minContentExists(String name) {
 		log.info("Minimum content exists for the profile: " + name);
 		return false;
+	}
+	
+	def getProfilePic(String username) {
+		User user = User.findByUsername(username)
+		Token facebookAccessToken = (Token) session[oauthService.findSessionKeyForAccessToken('facebook')]
+		try {
+			def (profilePicUrl) = facebookService.getProfileImage(facebookAccessToken, user.userid)
+			return g.img(uri: profilePicUrl)
+
+		} catch (CustomException ce) {
+			log.error(ce.errorMessage)
+		}
 	}
 	
 	def checkMinContent(String name) {

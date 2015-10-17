@@ -137,6 +137,7 @@
             <span class="anchor" id="portfolio"></span>
             <section class="row portfolio">
                 <h2>Portfolio</h2>
+				${raw(profilePic)}
                 <ul class="portfolio-categories">
                     <li><a class="nav-link" href="">All</a></li>
                     <li><a class="nav-link" href="">Bridal</a></li>

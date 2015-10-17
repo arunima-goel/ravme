@@ -7,6 +7,7 @@ class User implements Serializable {
 	private static final long serialVersionUID = 1
 
 	String userid // fb id
+	String username
 	Date lastUpdated
 	Date dateCreated
 	
@@ -16,10 +17,11 @@ class User implements Serializable {
 	boolean accountExpired
 	boolean accountLocked
 	
-	User(String userid, Profile profile) {
+	User(String userid, String username, Profile profile) {
 		this()
 		this.userid = userid
 		this.profile = profile
+		this.username = username
 	}
 
 	@Override
@@ -29,12 +31,12 @@ class User implements Serializable {
 
 	@Override
 	boolean equals(other) {
-		is(other) || (other instanceof User && other.userid == userid)
+		is(other) || (other instanceof User && other.userid == userid && other.username == username)
 	}
 
 	@Override
 	String toString() {
-		userid
+		userid + " " + username
 	}
 
 	Set<Role> getAuthorities() {
@@ -43,6 +45,7 @@ class User implements Serializable {
 
 	static constraints = {
 		userid blank: false, unique: true
+		username blank: false, unique: true
 		id blank: false, unique: true
 	}
 }

@@ -1,6 +1,7 @@
 package org.ravishingme
 
 import org.scribe.model.Token;
+
 import grails.converters.JSON
 
 class FacebookService {
@@ -21,7 +22,7 @@ class FacebookService {
 		String fbProfilePicUrl = facebookResponse.data?.url
 
 		if (!fbProfilePicUrl) {
-			log.error "FB Profile Image - ${facebookResource}"
+			log.info("FB Profile Image - ${facebookResource}")
 			throw new CustomException("Profile image not found.")
 		}
 
