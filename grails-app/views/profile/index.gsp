@@ -113,7 +113,7 @@
                     <div class="secondary-header row">
                     <div class="secondary-inner">
                         <div class="col-md-6">
-                        	<h1 class="page-title">${profile.username}</h1>
+                        	<h1 class="page-title">${profile?.username}</h1>
                         </div>
                         <div class="col-md-6">
                             <ul class="second-nav">

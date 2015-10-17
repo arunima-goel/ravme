@@ -27,7 +27,10 @@ Test Profile edit</br>
 	Locations Served: <g:textField name="locationsServed" value="${profile.locationsServed}" /></br>
 	Base Location: <g:textField name="baseLocation" value="${profile.baseLocation}" /></br>
 	Cosmetic Brands: <g:textField name="cosmeticBrands" value="${profile.cosmeticBrands}" /></br>
-	Specialties: <g:textField name="specialities" value="${profile.specialities}" /></br>
+	Specialties: <g:select name="specialities" from="${org.ravishingme.Speciality.list()}" 
+	value="${profile?.specialities}"
+	 optionValue="name" optionKey="id" multiple="true"/></br>
+	
 	Modes of payment: <g:textField name="modesOfPayment" value="${profile.modesOfPayment}" /></br>
 	Phone number: <g:textField name="phoneNumber" value="${profile.phoneNumber}" /></br>
 	Business hours: <g:textField name="businessHours" value="${profile.businessHours}" /></br>
@@ -36,7 +39,6 @@ Test Profile edit</br>
 	Years of experience: <g:textField name="yearsOfExperience" value="${profile.yearsOfExperience}" /></br>
 	Is Artist: <g:textField name="isArtist" value="${profile.isArtist}" /></br>
 	Social networks: <g:textField name="socialNetworks" value="${profile.socialNetworks}" /></br>
-	
 	</br>Services:</br>
 	<g:each in="${profile.services}" var="service">
 		<tr>
@@ -50,7 +52,19 @@ Test Profile edit</br>
    			</td>
 		</tr>
     </g:each>
-	
+    <g:each in="${profile.favorites}" var="favorite">
+    	<tr>
+    		<td>
+    			<g:link action="removeFavorite" id="${profile?.id}" params="['favoriteId': favorite.id]">
+    				Remove favorite
+    			</g:link>
+            </td>
+    		<td>
+    			Favorite - username: ${favorite.username}</br>
+    		</td>
+    	</tr>
+    </g:each>
+	</br>
 	<g:actionSubmit action="save" value="${message(code: 'default.button.update.label', default: 'Update')}" />
 </g:form>
 
@@ -62,7 +76,10 @@ Test Profile edit</br>
 	Price: <g:textField name="price"/></br>
 	<g:actionSubmit action="addService" value="Add Service" />
 </g:form>
-
+<g:form>
+	<g:hiddenField name="id" value = "${profile?.id }"/>
+	<g:actionSubmit action="addFavorite" value="Add Favorite" />
+</g:form>
 
 	
 </body>

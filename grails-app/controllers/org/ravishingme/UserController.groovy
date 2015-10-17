@@ -15,17 +15,29 @@ class UserController {
 		Token facebookAccessToken = (Token) session[oauthService.findSessionKeyForAccessToken('facebook')]
 		try {
 			// Get user id and username from facebook
-			def (userid, username) = facebookService.getUserIdAndName(facebookAccessToken, "me")
-			log.info("userId: " + userid + " username: " + username)
+			def (userid, name) = facebookService.getUserIdAndName(facebookAccessToken, "me")
+			log.info("userId: " + userid + " name: " + name)
 			
 			// Create the user in our database
 			if (!User.findByUserid(userid)) {
-				userService.createUser(username, userid)
+				userService.createUser(name, userid)
 			}
 			
 			// Get the user and redirect to the profile of the user
 			User user = User.findByUserid(userid)
-			redirect(controller: "profile", action: "index", params:[username: user.getUsername()])
+			redirect(controller: "profile", action: "index", params:[username: user.profile.getUsername()])
+		} catch (CustomException ce) {
+			flash.error = "Exception during login"
+		}
+	}
+	
+	def printLoggedInUser() {
+		log.info("Getting logged in user")
+		Token facebookAccessToken = (Token) session[oauthService.findSessionKeyForAccessToken('facebook')]
+		try {
+			// Get user id and username from facebook
+			def (userid, name) = facebookService.getUserIdAndName(facebookAccessToken, "me")
+			log.info("userId: " + userid + " name: " + name)
 		} catch (CustomException ce) {
 			flash.error = "Exception during login"
 		}

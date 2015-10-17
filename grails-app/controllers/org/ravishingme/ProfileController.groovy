@@ -7,7 +7,8 @@ import org.scribe.model.Token
 class ProfileController {
 	def oauthService
 	def userService
-
+	def facebookService
+	
 	def index(String username) {
 		log.info("Getting profile: " + username)
 		try {
@@ -15,6 +16,7 @@ class ProfileController {
 			if (profile) {
 				checkMinContent(username) // if logged in user is the same as the username, 
 										  // then check min content and display edit page
+				def user = getLoggedInUser()
 				[profile:profile]
 			} else {
 				redirect(uri: "/")
@@ -27,6 +29,22 @@ class ProfileController {
 
 	}
 
+	def getLoggedInUser() {
+		log.info("Getting logged in user")
+		Token facebookAccessToken = (Token) session[oauthService.findSessionKeyForAccessToken('facebook')]
+		try {
+			// Get user id and username from facebook
+			def (userid, name) = facebookService.getUserIdAndName(facebookAccessToken, "me")
+			log.info("Got logged in user")
+			log.info("userId: " + userid + " name: " + name)
+			return User.findByUserid(userid)
+		} catch (CustomException ce) {
+			log.info("Error getting logged in user")
+			flash.error = "Exception during login"
+		}
+	}
+
+	
 	def edit(String name) {
 		log.info("Edit profile: " + name)
 		Token facebookAccessToken = (Token) session[oauthService.findSessionKeyForAccessToken('facebook')]
@@ -65,7 +83,28 @@ class ProfileController {
 		profileInstance.save(flush: true)
 		redirect(action: "edit", params:[name: profileInstance.getUsername()])
 	}
-
+	
+	def addFavorite() {
+		log.info("Adding favorite")
+		def favoriteProfileInstance = Profile.get(params.id)
+		
+		def profileInstance = getLoggedInUser().profile
+		profileInstance.addToFavorites(favoriteProfileInstance)
+		profileInstance.save(flush: true)
+		redirect(action: "index", params:[username: profileInstance.getUsername()])
+	}
+	
+	def removeFavorite() {
+		log.info("Removing favorite")
+		log.info("\nFavorite Id: " + params.favoriteId + "\nId: " + params.id)
+		def favoriteProfileInstance = Profile.get(params.favoriteId)
+		
+		def profileInstance = Profile.get(params.id)
+		profileInstance.removeFromFavorites(favoriteProfileInstance)
+		profileInstance.save(flush: true)
+//		redirect(action: "index", params:[username: profileInstance.getUsername()])
+	}
+	
 	def minContentExists(String name) {
 		log.info("Minimum content exists for the profile: " + name);
 		return false;

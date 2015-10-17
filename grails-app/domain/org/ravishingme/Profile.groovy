@@ -5,12 +5,14 @@ import java.util.List;
 
 class Profile implements Serializable {
 
-	Profile(String username) {
+	Profile(String username, String name) {
+		this.name = name
 		this.username = username
 		this.isArtist = false
 	}
 
 	// add photos
+	String name
 	String username
 	String aboutYou // will this have a limit?
 	String locationsServed // checked combo box on the UI and a list here based on location
@@ -29,8 +31,9 @@ class Profile implements Serializable {
 	String socialNetworks // split this into different networks? figure out how I will model this
 
 	//static hasMany = [photos: Photo]
-	static hasMany = [services: Service]
+	static hasMany = [services: Service, favorites: Profile]
 	static belongsTo = [user: User]
+	
 
 	static constraints = {
 		username blank: false, nullable: false, editable: false
