@@ -137,4 +137,48 @@ class ProfileController {
 	def loginError() {
 		render params
 	}
+	
+//	def uploadAvatarPic() {
+//		log.info("upload avatar pic")
+//		def profile = Profile.findByUsername("Amit-Rao")
+//		profile.avatar = params.photo
+//		profile.save(flush: true)
+//	}
+//	
+//	def getAvatarPic() {
+//		log.info("get avatar pic")
+//		def profile = Profile.findByUsername("Amit-Rao")
+//		log.info("profile avatar: " + profile.avatar)
+//		response.outputStream << profile.avatar // write the photo to the outputstream
+//		response.outputStream.flush()
+//   }
+	
+	def upload_avatar() {
+	  // Get the avatar file from the multi-part request
+	  def f = request.getFile('avatar')
+	  
+	  def profile = Profile.findByUsername("Amit-Rao")
+	  // Save the image and mime type
+	  profile.avatar = f.bytes
+	  profile.avatarType = f.contentType
+	  log.info("File uploaded: $profile.avatarType")
+	
+	  // Validation works, will check if the image is too big
+	  if (!profile.save(flush: true)) {
+		return
+	  }
+	}
+	
+	def avatar_image() {
+		log.info("get avatar pic")
+		def avatarUser = Profile.findByUsername("Amit-Rao")
+		response.contentType = avatarUser.avatarType
+		response.contentLength = avatarUser.avatar.size()
+		log.info("Avatar type: " + avatarUser.avatarType)
+		log.info("Avatar: " + avatarUser.avatar)
+		OutputStream out = response.outputStream
+		out.write(avatarUser.avatar)
+		out.close()
+	  }
+	
 }

@@ -29,7 +29,9 @@ class Profile implements Serializable {
 	Integer yearsOfExperience // do we need this?
 	Boolean isArtist
 	String socialNetworks // split this into different networks? figure out how I will model this
-
+	byte[] avatar
+	String avatarType
+	
 	//static hasMany = [photos: Photo]
 	static hasMany = [services: Service, favorites: Profile]
 	static belongsTo = [user: User]
@@ -52,5 +54,7 @@ class Profile implements Serializable {
 		accomplishments nullable: true
 		specialities nullable: true
 		phoneNumber nullable: true
+		avatar nullable:true, maxSize: 1024 * 1024 * 2 /* 2MB */
+		avatarType(nullable:true)
 	}
 }
