@@ -12,8 +12,9 @@ class UrlMappings {
 		"/profile/$username?" (controller: "profile", action: "index")
 		"/profile/edit/$name?"(controller:"profile", action:"edit")
 		"/profile/removeFavorite"(controller:"profile", action:"removeFavorite")
-		"/profile/avatar_image"(controller:"profile", action:"avatar_image")
-		"/profile/upload_avatar"(controller:"profile", action:"upload_avatar")
+		"/profile/coverPic"(controller:"profile", action:"coverPic")
+		"/profile/profilePic"(controller:"profile", action:"profilePic")
+		"/profile/uploadProfilePic"(controller:"profile", action:"uploadProfilePic")
 		"500"(view:'/error')
 	}
 }

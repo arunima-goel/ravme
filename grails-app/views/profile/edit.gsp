@@ -19,17 +19,8 @@
 
 	</br> Test Profile edit
 	</br>
-	</br>
-	${raw(profilePic)}
-	</br>
-
-	<img src="${createLink(action:'getAvatarPic')}" />
-	<img src="${createLink(action:'getAvatarPic', id:"${profile?.id}")}" width='300' />
-	<img src="${resource(dir: 'images', file: 'city-icon.png')}" alt="Grails"/>
-	
-	</br>
-	  Here:
-	  <img class="avatar" src="${createLink(action:'avatar_image')}" />
+		  <img class="profilePic" src="${createLink(action:'profilePic')}" />
+		  <img class="coverPic" src="${createLink(action:'coverPic')}" />
 	
 	</br>
 	<g:form method="post">
@@ -128,7 +119,7 @@
 	</br>------------------------------------------------------</br>
 	<fieldset>
 	  <legend>Avatar Upload</legend>
-	  <g:uploadForm action="upload_avatar">
+	  <g:uploadForm action="uploadProfilePic">
 	    <label for="avatar">Avatar (16K)</label>
 	    <input type="file" name="avatar" id="avatar" />
 	    <div style="font-size:0.8em; margin: 1.0em;">

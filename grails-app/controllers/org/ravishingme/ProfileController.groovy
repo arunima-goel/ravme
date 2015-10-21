@@ -139,7 +139,7 @@ class ProfileController {
 	}
 	
 	
-	def upload_avatar() {
+	def uploadProfilePic() { 
 	  // Get the avatar file from the multi-part request
 	  def f = request.getFile('avatar')
 	  
@@ -147,6 +147,7 @@ class ProfileController {
 	  // Save the image and mime type
 	  Image profilePic = new Image(f.bytes, f.contentType)
 	  profile.profilePic = profilePic
+	  profile.coverPic = profilePic
 	  
 	  log.info("File uploaded: $profile.profilePic.imageType")
 	
@@ -156,15 +157,27 @@ class ProfileController {
 	  }
 	}
 	
-	def avatar_image() {
-		log.info("get avatar pic")
+	def profilePic() { 
+		log.info("get profile pic")
 		def avatarUser = Profile.findByUsername("Amit-Rao")
 		response.contentType = avatarUser.profilePic.imageType
 		response.contentLength = avatarUser.profilePic.image.size()
-		log.info("Avatar type: " + avatarUser.profilePic.imageType)
-		log.info("Avatar: " + avatarUser.profilePic.image)
+		log.info("Profile pic type: " + avatarUser.profilePic.imageType)
+		log.info("Profile pic: " + avatarUser.profilePic.image)
 		OutputStream out = response.outputStream
 		out.write(avatarUser.profilePic.image)
+		out.close()
+	  }
+	
+	def coverPic() {
+		log.info("get cover pic")
+		def avatarUser = Profile.findByUsername("Amit-Rao")
+		response.contentType = avatarUser.coverPic.imageType
+		response.contentLength = avatarUser.coverPic.image.size()
+		log.info("Cover pic type: " + avatarUser.coverPic.imageType)
+		log.info("Cover pic: " + avatarUser.coverPic.image)
+		OutputStream out = response.outputStream
+		out.write(avatarUser.coverPic.image)
 		out.close()
 	  }
 	

@@ -17,4 +17,8 @@ class Image {
 		this.image = image
 		this.imageType = imageType
 	}
+	
+	Image() {
+		
+	}
 }
