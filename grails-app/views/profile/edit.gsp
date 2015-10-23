@@ -19,9 +19,19 @@
 
 	</br> Test Profile edit
 	</br>
+	Profile pic: </br></br>
 		  <img class="profilePic" src="${createLink(action:'profilePic')}" />
+		  
+    </br></br>Cover pic:</br></br>
 		  <img class="coverPic" src="${createLink(action:'coverPic')}" />
-	
+	</br></br>Portfolio pics</br></br>
+		
+		<g:each in="${profile.albums}" var="album">
+   			<g:each in="${album.images}" var="image">
+   				${image} ${raw(image)}
+			</g:each>
+		</g:each>
+		</br></br>
 	</br>
 	<g:form method="post">
 		<g:hiddenField name="username" value="${profile?.username}" />
@@ -124,6 +134,19 @@
 	    <input type="file" name="avatar" id="avatar" />
 	    <div style="font-size:0.8em; margin: 1.0em;">
 	      For best results, your avatar should have a width-to-height ratio of 4:5.
+	      For example, if your image is 80 pixels wide, it should be 100 pixels high.
+	    </div>
+	    <input type="submit" class="buttons" value="Upload" />
+	  </g:uploadForm>
+	</fieldset>
+	
+	<fieldset>
+	  <legend>Portfolio pics upload</legend>
+	  <g:uploadForm action="addPortfolioPicsToAlbum">
+	    <label for="files">Portfolio pics(16K)</label>
+	    <input type="file" name="files" id="files" multiple="multiple"/>
+	    <div style="font-size:0.8em; margin: 1.0em;">
+	      For best results, your portfolio pics should have a width-to-height ratio of 4:5.
 	      For example, if your image is 80 pixels wide, it should be 100 pixels high.
 	    </div>
 	    <input type="submit" class="buttons" value="Upload" />

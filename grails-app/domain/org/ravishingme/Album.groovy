@@ -12,4 +12,8 @@ class Album {
 		albumName nullable:false
 	}
 	
+	Album(String albumName) {
+		this.albumName = albumName
+	}
+	
 }

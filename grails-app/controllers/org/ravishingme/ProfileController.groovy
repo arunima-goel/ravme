@@ -157,6 +157,39 @@ class ProfileController {
 	  }
 	}
 	
+	def addPortfolioPicsToAlbum() {
+		// TODO: add album name here
+		String albumName = "MakeUp"
+		List fileList = request.getFiles('files') // 'files' is the name of the input
+		def profile = Profile.findByUsername("Amit-Rao")
+		def album = profile.albums.find { album.albumName = albumName }
+
+		fileList.each { file ->
+			println 'filename: ' + file.getOriginalFilename()
+
+			if (album) {
+				log.info("found album")
+				//			  album.addToImages(new Image(file.bytes, f.contentType))
+			} else {
+				log.info("creating new album")
+				album = new Album(albumName) 
+				profile.addToAlbums(album)
+				profile.save(flush: true)
+			}
+
+			// Save the image and mime type
+			Image portfolioPic = new Image(file.bytes, file.contentType)
+			album.addToImages(portfolioPic)
+			album.save(flush:true)
+		  
+	  }
+	  
+	  // Validation works, will check if the image is too big
+//	  if (!profile.save(flush: true)) {
+//		return
+//	  }
+	}
+	
 	def profilePic() { 
 		log.info("get profile pic")
 		def avatarUser = Profile.findByUsername("Amit-Rao")
@@ -180,5 +213,6 @@ class ProfileController {
 		out.write(avatarUser.coverPic.image)
 		out.close()
 	  }
+	
 	
 }
