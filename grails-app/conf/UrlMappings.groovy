@@ -16,6 +16,7 @@ class UrlMappings {
 		"/profile/profilePic"(controller:"profile", action:"profilePic")
 		"/profile/uploadProfilePic"(controller:"profile", action:"uploadProfilePic")
 		"/profile/addPortfolioPicsToAlbum"(controller:"profile", action:"addPortfolioPicsToAlbum")
+		"/profile/addService"(controller:"profile", action:"addService")
 		"500"(view:'/error')
 	}
 }

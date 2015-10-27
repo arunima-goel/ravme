@@ -77,7 +77,11 @@
 			value="${profile.socialNetworks}" />
 		</br>
 		</br>Services:</br>
-		<g:render template="/profile/service"/>
+		
+		<div id="profileServices">
+			<g:render template="/profile/service"/>
+		</div>
+		
 		<g:each in="${profile.favorites}" var="favorite">
 			<tr>
 				<td><g:link action="removeFavorite" id="${profile?.id}"
@@ -97,13 +101,13 @@
 	</br>
 	<g:form>
 		<g:hiddenField name="id" value="${profile?.id}" />
-	Group name: <g:textField name="serviceGroup" />
+		<label for="serviceGroup">Service Group</label><g:textField name="serviceGroup"/><br/>
 		</br>
-	Service name: <g:textField name="serviceName" />
+		<label for="serviceName">Service Name</label><g:textField name="serviceName"/><br/>
 		</br>
-	Price: <g:textField name="price" />
+		<label for="price">Price</label><g:textField name="price"/><br/>
 		</br>
-		<g:actionSubmit action="addService" value="Add Service" />
+	    <g:submitToRemote url="[action:'addService']" update="profileServices" value="Add Service"/>
 	</g:form>
 	<g:form>
 		<g:hiddenField name="id" value="${profile?.id }" />
