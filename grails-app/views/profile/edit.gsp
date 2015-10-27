@@ -28,8 +28,8 @@
 		
 		<g:each in="${profile.albums}" var="album">
    			<g:each in="${album.images}" var="image">
-   				${image} ${raw(image)}
-			</g:each>
+   				<img class="coverPic" src="${createLink(controller: 'image', action:'view', id: image?.id)}" />
+   			</g:each>
 		</g:each>
 		</br></br>
 	</br>
@@ -77,17 +77,7 @@
 			value="${profile.socialNetworks}" />
 		</br>
 		</br>Services:</br>
-		<g:each in="${profile.services}" var="service">
-			<tr>
-				<td><g:link class="btn btn-small btn-inverse"
-						controller="service" action="delete" id="${service.id}">
-	                Delete
-	            </g:link>/</td>
-				<td>Service - Service group: ${service.serviceGroup}, Service
-					name: ${service.serviceName}, Price: ${service.price} </br>
-				</td>
-			</tr>
-		</g:each>
+		<g:render template="/profile/service"/>
 		<g:each in="${profile.favorites}" var="favorite">
 			<tr>
 				<td><g:link action="removeFavorite" id="${profile?.id}"
