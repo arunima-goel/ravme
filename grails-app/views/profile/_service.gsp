@@ -1,11 +1,9 @@
-<g:each in="${profile.services}" var="service">
 	<tr>
 		<td><g:link class="btn btn-small btn-inverse"
-				controller="service" action="delete" id="${service.id}">
+				controller="service" action="delete" id="${it.id}">
                Delete
            </g:link>/</td>
-		<td>Service - Service group: ${service.serviceGroup}, Service
-			name: ${service.serviceName}, Price: ${service.price} </br>
+		<td>Service - Service group: ${it.serviceGroup}, Service
+			name: ${it.serviceName}, Price: ${it.price} </br>
 		</td>
 	</tr>
-</g:each>

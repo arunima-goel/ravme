@@ -82,7 +82,7 @@ class ProfileController {
 		profileInstance.addToServices(serviceInstance)
 		profileInstance.save(flush: true)
 		//redirect(action: "edit", params:[name: profileInstance.getUsername()])
-		render(template:'/profile/service', model: [profile: Profile.get(params.id)])
+		render(template:'/profile/service', collection: Profile.get(params.id).services)
 	}
 
 	def addFavorite() {

@@ -79,7 +79,7 @@
 		</br>Services:</br>
 		
 		<div id="profileServices">
-			<g:render template="/profile/service"/>
+			<g:render template="/profile/service" collection="${profile.services}"/>
 		</div>
 		
 		<g:each in="${profile.favorites}" var="favorite">
