@@ -15,6 +15,9 @@ class UserService {
 		def role = Role.findByAuthority("ROLE_USER") ?: new Role(authority: "ROLE_USER").save(failOnError: true)
 		
 		def profile = new Profile(username, name);
+		profile.profilePic = new Image();
+		profile.coverPic = new Image();
+		
 		def user = new User(userId, username,  profile)
 		user.save(failOnError: true)
 		
