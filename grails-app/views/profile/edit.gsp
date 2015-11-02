@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page import="org.ravishingme.CosmeticBrand"%>
 <html>
 <head>
 <meta name="layout" content="main" />
@@ -18,6 +19,24 @@
 	</oauth:connected>
 
 	</br> Test Profile edit
+	</br>
+	</br>
+	==========================================================================================
+	</br>
+	Search results:
+	</br>
+	<div id="searchResults">
+	</div>
+		
+	<g:form>
+		<g:each in="${CosmeticBrand.list(sort: 'id', order: 'asc')}" var="cosmeticBrand" status="i">
+		    <g:checkBox name="cosmeticBrands" value="${cosmeticBrand.id}" checked="${profile.cosmeticBrands.contains(cosmeticBrand)}" />
+		    <label for="cosmeticBrands">${cosmeticBrand.name}</label>
+		</g:each>
+	    <g:submitToRemote url="[action:'search']" update="searchResults" value="Search"/>
+	</g:form>
+	==========================================================================================
+	</br>
 	</br>
 	Profile pic: </br></br>
 		  <img class="profilePic" src="${createLink(action:'profilePic')}" />
@@ -44,13 +63,17 @@
 	Base Location: <g:textField name="baseLocation"
 			value="${profile.baseLocation}" />
 		</br>
-	Cosmetic Brands: <g:textField name="cosmeticBrands"
-			value="${profile.cosmeticBrands}" />
-		</br>
+	Cosmetic Brands:
+		<g:each in="${CosmeticBrand.list(sort: 'id', order: 'asc')}" var="cosmeticBrand" status="i">
+		    <g:checkBox name="cosmeticBrands" value="${cosmeticBrand.id}" checked="${profile.cosmeticBrands.contains(cosmeticBrand)}" />
+		    <label for="cosmeticBrands">${cosmeticBrand.name}</label>
+		</g:each>
+	</br>
+	
 	Specialties: <g:select name="specialities"
 			from="${org.ravishingme.Speciality.list()}"
 			value="${profile?.specialities}" optionValue="name" optionKey="id"
-			multiple="true" />
+			multiple="multiple" />
 		</br>
 	
 	Modes of payment: <g:textField name="modesOfPayment"

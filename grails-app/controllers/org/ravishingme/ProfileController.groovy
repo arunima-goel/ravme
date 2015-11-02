@@ -66,8 +66,11 @@ class ProfileController {
 				"\nmodes of payment: " + params.modesOfPayment)
 
 		def profileInstance = Profile.get(params.id)
-		profileInstance.properties = params
-		log.info("Profile instance modes of payment: " + profileInstance.modesOfPayment)
+		profileInstance.cosmeticBrands.clear() // ***deselected values don't get saved if we don't clear the values here 
+		profileInstance.specialities.clear()
+		bindData profileInstance, params
+		//profileInstance.properties = params
+		log.info("services " + params)
 		profileInstance.save(flush: true)
 		redirect(action: "edit", params:[name: profileInstance.username])
 
@@ -84,7 +87,12 @@ class ProfileController {
 		//redirect(action: "edit", params:[name: profileInstance.getUsername()])
 		render(template:'/profile/service', collection: Profile.get(params.id).services)
 	}
-
+	
+	def search() {
+		log.info("Search params: " + params)
+		render(template:'/profile/searchResults', collection: Profile.list())
+	}
+	
 	def addFavorite() {
 		log.info("Adding favorite")
 		def favoriteProfileInstance = Profile.get(params.id)
@@ -186,7 +194,7 @@ class ProfileController {
 
 		album.save(flush:true)
 	}
-
+	
 	def profilePic() {
 		log.info("get profile pic")
 		def avatarUser = Profile.findByUsername("Amit-Rao")

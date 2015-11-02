@@ -19,8 +19,6 @@ class Profile implements Serializable {
 	String baseLocation // combo box containing states
 	Date lastUpdated
 	Date dateCreated
-	List cosmeticBrands // checked combo box? comma separated list will do for now
-	List specialities // checked combo box? comma separated list will do for now // fix spelling - change to 'specialties'
 	List modesOfPayment // what modes of payment are available in india?
 	String phoneNumber // required? what data type?
 	String businessHours
@@ -32,7 +30,8 @@ class Profile implements Serializable {
 	
 	//static hasMany = [photos: Photo]
 	static hasOne = [profilePic: Image, coverPic: Image]
-	static hasMany = [services: Service, favorites: Profile, albums: Album]
+	static hasMany = [services: Service, favorites: Profile, albums: Album,
+		specialities: Speciality, cosmeticBrands: CosmeticBrand]
 	static belongsTo = [user: User]
 	
 
@@ -40,7 +39,6 @@ class Profile implements Serializable {
 		username blank: false, nullable: false, editable: false
 		locationsServed nullable: true
 		baseLocation nullable: true
-		cosmeticBrands nullable: true
 		modesOfPayment nullable: true
 		businessHours nullable: true
 		startingPrice nullable: true
@@ -49,9 +47,7 @@ class Profile implements Serializable {
 		socialNetworks nullable: true
 		aboutYou nullable:true, maxSize: 250
 		modesOfPayment nullable: true, inList:["Cash", "Cheque", "Credit Card", "Debit Card"].subsequences() as List
-		cosmeticBrands nullable: true
 		accomplishments nullable: true
-		specialities nullable: true
 		phoneNumber nullable: true
 	}
 }
