@@ -27,13 +27,17 @@ class Profile implements Serializable {
 	Integer yearsOfExperience // do we need this?
 	Boolean isArtist
 	String socialNetworks // split this into different networks? figure out how I will model this
+	List<CosmeticBrand> cosmeticBrands
 	
 	//static hasMany = [photos: Photo]
 	static hasOne = [profilePic: Image, coverPic: Image]
 	static hasMany = [services: Service, favorites: Profile, albums: Album,
 		specialities: Speciality, cosmeticBrands: CosmeticBrand]
 	static belongsTo = [user: User]
-	
+	static searchable = {
+		except = ['profilePic', 'coverPic', 'user', 'specialities']
+		cosmeticBrands reference:true
+	}
 
 	static constraints = {
 		username blank: false, nullable: false, editable: false

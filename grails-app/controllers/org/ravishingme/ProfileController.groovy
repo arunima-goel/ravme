@@ -90,7 +90,17 @@ class ProfileController {
 	
 	def search() {
 		log.info("Search params: " + params)
-		render(template:'/profile/searchResults', collection: Profile.list())
+		
+		CosmeticBrand brand = CosmeticBrand.findByName("brand3")
+		//def profiles = Profile.list().findAll{it.cosmeticBrands.id == 3}
+		
+		log.info("cosmetic brands params: " + params.cosmeticBrands);
+		def cosmeticBrandCriteria = params.list('cosmeticBrands')*.toLong()
+		List profiles = Profile.withCriteria {
+			'in'('cosmeticBrands', cosmeticBrandCriteria)
+			}
+		log.info("Profiles: " + profiles)
+		render(template:'/profile/searchResults', collection: profiles)
 	}
 	
 	def addFavorite() {
