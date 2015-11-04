@@ -92,14 +92,25 @@ class ProfileController {
 		log.info("Search params: " + params)
 		
 		CosmeticBrand brand = CosmeticBrand.findByName("brand3")
-		//def profiles = Profile.list().findAll{it.cosmeticBrands.id == 3}
 		
-		log.info("cosmetic brands params: " + params.cosmeticBrands);
+		log.info("cosmetic brands params: " + params.cosmeticBrands + " bridal price: " + params.bridalPrice);
 		def cosmeticBrandCriteria = params.list('cosmeticBrands')*.toLong()
+		
+		def servicesList = Service.withCriteria {
+			'gt'('price', params.bridalPrice.toDouble())
+		}
+		
+		
 		List profiles = Profile.withCriteria {
-			'in'('cosmeticBrands', cosmeticBrandCriteria)
+			'and' {
+				'in'('cosmeticBrands', cosmeticBrandCriteria)
+				'in'('id', servicesList*.profile)
 			}
-		log.info("Profiles: " + profiles)
+		}
+
+		log.info("Services with >1 price -> their profiles: " + servicesList*.profile)
+		
+//		log.info("Profiles: " + profiles)
 		render(template:'/profile/searchResults', collection: profiles)
 	}
 	

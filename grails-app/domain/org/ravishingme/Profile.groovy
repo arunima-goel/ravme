@@ -35,7 +35,7 @@ class Profile implements Serializable {
 		specialities: Speciality, cosmeticBrands: CosmeticBrand]
 	static belongsTo = [user: User]
 	static searchable = {
-		except = ['profilePic', 'coverPic', 'user', 'specialities']
+		except = ['profilePic', 'coverPic', 'user', 'specialities', 'services']
 		cosmeticBrands reference:true
 	}
 
