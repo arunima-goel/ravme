@@ -33,7 +33,10 @@ class Profile implements Serializable {
 	static hasMany = [services: Service, favorites: Profile, albums: Album,
 		specialities: Speciality, cosmeticBrands: CosmeticBrand]
 	static belongsTo = [user: User]
-	
+	static searchable = {
+		except = ['profilePic', 'coverPic', 'user', 'specialities', 'services']
+		cosmeticBrands reference:true
+	}
 
 	static constraints = {
 		username blank: false, nullable: false, editable: false

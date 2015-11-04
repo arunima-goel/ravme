@@ -66,7 +66,7 @@ class ProfileController {
 				"\nmodes of payment: " + params.modesOfPayment)
 
 		def profileInstance = Profile.get(params.id)
-		profileInstance.cosmeticBrands.clear() // ***deselected values don't get saved if we don't clear the values here 
+		profileInstance.cosmeticBrands.clear() // ***deselected values don't get saved if we don't clear the values here
 		profileInstance.specialities.clear()
 		bindData profileInstance, params
 		//profileInstance.properties = params
@@ -87,12 +87,49 @@ class ProfileController {
 		//redirect(action: "edit", params:[name: profileInstance.getUsername()])
 		render(template:'/profile/service', collection: Profile.get(params.id).services)
 	}
-	
+
 	def search() {
 		log.info("Search params: " + params)
-		render(template:'/profile/searchResults', collection: Profile.list())
+
+		def mapOfConditions = [:]
+
+		def cosmeticBrandCriteria = params.list('cosmeticBrands')*.toLong()
+		if (cosmeticBrandCriteria.size() > 0) {
+			mapOfConditions['cosmeticBrands'] = cosmeticBrandCriteria
+		}
+
+		List servicesList = Service.list()
+		if (params.bridalPrice != null && !params.bridalPrice.equals("")) {
+			servicesList = Service.withCriteria {
+				'gt'('price', params.bridalPrice.toDouble())
+			}
+
+			mapOfConditions['id'] = servicesList*.profile
+		}
+
+		// log conditions
+		mapOfConditions.each {
+			log.info("key: " + it.key + " value: " + it.value)
+		}
+
+
+		List profiles = Profile.createCriteria().list {
+			'and' {
+				mapOfConditions.each {
+					'in'(it.key, it.value)
+				}
+			}
+		}
+
+//		log.info("Criteria: " + criteria)
+//		List profiles = criteria.list{}
+
+		//		log.info("Services with >1 price -> their profiles: " + servicesList*.profile)
+
+		//		log.info("Profiles: " + profiles)
+		render(template:'/profile/searchResults', collection: profiles)
 	}
-	
+
 	def addFavorite() {
 		log.info("Adding favorite")
 		def favoriteProfileInstance = Profile.get(params.id)
@@ -194,7 +231,7 @@ class ProfileController {
 
 		album.save(flush:true)
 	}
-	
+
 	def profilePic() {
 		log.info("get profile pic")
 		def avatarUser = Profile.findByUsername("Amit-Rao")

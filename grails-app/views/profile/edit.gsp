@@ -33,7 +33,8 @@
 		    <g:checkBox name="cosmeticBrands" value="${cosmeticBrand.id}" checked="${profile.cosmeticBrands.contains(cosmeticBrand)}" />
 		    <label for="cosmeticBrands">${cosmeticBrand.name}</label>
 		</g:each>
-	    <g:submitToRemote url="[action:'search']" update="searchResults" value="Search"/>
+		<g:textField name="bridalPrice" />
+	    <g:submitToRemote url="[controller: 'profile', action:'search']" update="searchResults" value="Search"/>
 	</g:form>
 	==========================================================================================
 	</br>
