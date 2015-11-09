@@ -8,7 +8,8 @@ class UserController {
 	def userService
 	def facebookService
 	
-	def index() {}
+	def index() {
+	}
 
 	def loginSuccess() {
 		log.info("Successful facebook login");
@@ -25,6 +26,10 @@ class UserController {
 			
 			// Get the user and redirect to the profile of the user
 			User user = User.findByUserid(userid)
+			
+			log.info("forward uri: " + request.forwardURI
+				 + " request url: " + request.getRequestURL()
+				 + " params: " + params)
 			redirect(controller: "profile", action: "index", params:[username: user.profile.getUsername()])
 		} catch (CustomException ce) {
 			flash.error = "Exception during login"

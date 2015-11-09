@@ -11,12 +11,14 @@ class ProfileController {
 
 	def index(String username) {
 		log.info("Getting profile: " + username)
+		log.info("Forward uri in ProfileController: " + request.forwardURI)
 		try {
 			def profile = Profile.findByUsername(username)
 			if (profile) {
 				checkMinContent(username) // if logged in user is the same as the username,
 				// then check min content and display edit page
 				def user = getLoggedInUser()
+				session["currentPage"] = "Profile"
 				[profile:profile, profilePic: getProfilePic(username)]
 			} else {
 				redirect(uri: "/")

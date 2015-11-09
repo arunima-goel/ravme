@@ -27,7 +27,17 @@
 </head>
 
 <body>
-
+<script type="text/javascript">
+	window.onload = function() {
+		var x = location.pathname;
+	    var facebookLinks = document.getElementsByClassName("facebookLogin")
+	    Array.prototype.forEach.call(facebookLinks, function(facebookLink) {
+		    var hrefAttr = facebookLink.getAttribute("href");
+	        facebookLink.setAttribute("href", hrefAttr + x)
+	    });
+	    	    
+	}
+</script>
     <!--Header_section-->
     <header id="header-wrapper">
       <div class="container-fluid">          
@@ -56,11 +66,11 @@
                                <oauth:disconnected provider="facebook">
                                 <span class="vert hidden-xs">&vert;</span>
                                 <li>
-                                    <oauth:connect provider="facebook" id="facebook-connect-link">login</oauth:connect>
+                                    <oauth:connect provider="facebook" id="facebook-connect-link" class="facebookLogin">login</oauth:connect>
                                 </li>
                                 <span class="vert hidden-xs">&vert;</span>
                                 <li>
-                                    <oauth:connect provider="facebook" id="facebook-connect-link">sign up</oauth:connect>
+                                    <oauth:connect provider="facebook" id="facebook-connect-link" class="facebookLogin">sign up</oauth:connect>
                                 </li>
                                </oauth:disconnected>
                                <oauth:connected provider="facebook">

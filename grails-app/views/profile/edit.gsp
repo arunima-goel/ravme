@@ -7,12 +7,24 @@
 </head>
 
 <body>
+<script type="text/javascript">
+	window.onload = function() {
+		var x = location.pathname;
+	    var facebookLinks = document.getElementsByClassName("facebookLogin")
+	    Array.prototype.forEach.call(facebookLinks, function(facebookLink) {
+		    var hrefAttr = facebookLink.getAttribute("href");
+	        facebookLink.setAttribute("href", hrefAttr + x)
+	    });
+	    	    
+	}
+</script>
+
 	<g:link mapping="aboutus"> About us</g:link>
 	|
 	<oauth:disconnected provider="facebook">
-		<oauth:connect provider="facebook" id="facebook-connect-link">Login</oauth:connect>
+		<oauth:connect provider="facebook" id="facebook-connect-link" class="facebookLogin">Login</oauth:connect>
 	|
-	<oauth:connect provider="facebook" id="facebook-connect-link">Sign up</oauth:connect>
+	<oauth:connect provider="facebook" id="facebook-connect-link" class="facebookLogin">Sign up</oauth:connect>
 	</oauth:disconnected>
 	<oauth:connected provider="facebook">
 		<g:link controller="user" action="logout" id="facebook">Logout</g:link>

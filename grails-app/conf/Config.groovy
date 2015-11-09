@@ -86,16 +86,18 @@ grails.hibernate.pass.readonly = false
 grails.hibernate.osiv.readonly = false
 
 def logDirectory = '.'
-
 environments {
 	development {
 		grails.logging.jul.usebridge = true
 		logDirectory = "logs"
+		grails.app.context="/"
+		grails.serverURL = "http://localhost:8080"
 	}
 	production {
 		grails.logging.jul.usebridge = false
 		logDirectory = "logs"
-		// TODO: grails.serverURL = "http://www.changeme.com"
+		grails.app.context="/"
+		grails.serverURL = "http://www.ravishing.me"
 	}
 }
 
@@ -150,7 +152,8 @@ oauth {
 			secret = 'e39418757e388a90986b18f868bb6833'
 			successUri = '/user/loginSuccess'
 			failureUri = '/user/loginError'
-			callback = "http://localhost:8080/ravme/oauth/facebook/callback"
+			callback = "http://localhost:8080/oauth/facebook/callback"
+			callbackParams = ""
 		}
 	}
 }
@@ -160,7 +163,7 @@ grails {
 		host = "smtpout.secureserver.net"
 		port = 587
 		username = "ravishing@ravishing.me"
-		password = "ravdotme"	
+		password = "ravdotme"
 		props = ["mail.smtps.auth":"true"]
 	}
 }
