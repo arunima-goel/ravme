@@ -37,6 +37,7 @@
 		    var hrefAttr = facebookLink.getAttribute("href");
 	        facebookLink.setAttribute("href", hrefAttr + x)
 	    });
+	    
 	    	    
 	}
 </script>
@@ -69,11 +70,11 @@
                                 <oauth:disconnected provider="facebook">
 	                                <span class="vert hidden-xs">&vert;</span>
 	                                <li>
-	                                    <oauth:connect provider="facebook" class="facebookLogin" id="facebook-connect-link">login</oauth:connect>
+	                                    <oauth:connect provider="facebook" class="facebookLogin" id="facebook-connect-link" target="_blank">login</oauth:connect>
 	                                </li>
 	                                <span class="vert hidden-xs">&vert;</span>
 	                                <li>
-	                                    <oauth:connect provider="facebook" class="facebookLogin" id="facebook-connect-link">sign up</oauth:connect>
+	                                    <oauth:connect provider="facebook" class="facebookLogin" id="facebook-connect-link" target="_blank">sign up</oauth:connect>
 	                                </li>
                                 </oauth:disconnected>
                                 <oauth:connected provider="facebook">
