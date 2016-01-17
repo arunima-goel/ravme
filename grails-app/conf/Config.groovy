@@ -162,8 +162,8 @@ grails {
 	mail {
 		host = "smtpout.secureserver.net"
 		port = 587
-		username = "ravishing@ravishing.me"
-		password = "ravdotme"
+		username = "xxx"
+		password = "xxx"
 		props = ["mail.smtps.auth":"true"]
 	}
 }
